@@ -58,8 +58,9 @@ function fetchData(){
         var _id = id + "_" + hour + "_" + min;
         var subtitle = ud.subtitle;
         var title = ud.title;
+        var label = ud.label;
         var waiting_time = ud.waiting_time;
-        var ss = {'_id':_id,id:id,area:area,subtitle:subtitle,title:title,waiting_time:waiting_time,day:day,hour:hour,min:min,ts:now.getTime(),time:now};
+        var ss = {'_id':_id,id:id,area:area,label:label,subtitle:subtitle,title:title,waiting_time:waiting_time,day:day,hour:hour,min:min,ts:now.getTime(),time:now};
         cl_beijing_universal.insert(ss,function(err){
           console.log(err);
         });
