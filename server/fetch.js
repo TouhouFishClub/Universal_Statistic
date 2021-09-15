@@ -9,17 +9,23 @@ var udb=null;
 initDB();
 function initDB(){
   MongoClient.connect(mongourl, function(err, db) {
-    udb=db;
+    udb=db.db('db_resort');
   });
 }
 
-
+run();
 function run(){
+  var now = new Date().getTime();
+  var left = 310000 - now%300000;
+  console.log('left seconds:'+left)
   setTimeout(function(){
     fetchData();
-  },1000)
+    setTimeout(function(){
+      run()
+    },1000)
+  },left)
 }
-run();
+
 
 
 function fetchData(){
@@ -49,11 +55,14 @@ function fetchData(){
         var ud = list[i];
         var area = ud.area;
         var id = ud.material_id;
+        var _id = id + "_" + hour + "_" + min;
         var subtitle = ud.subtitle;
         var title = ud.title;
         var waiting_time = ud.waiting_time;
-        var ss = {id:id,area:area,subtitle:subtitle,title:title,waiting_time:waiting_time,day:day,hour:hour,min:min,ts:now.getTime(),time:now};
-        cl_universal.save(ss);
+        var ss = {'_id':_id,id:id,area:area,subtitle:subtitle,title:title,waiting_time:waiting_time,day:day,hour:hour,min:min,ts:now.getTime(),time:now};
+        cl_beijing_universal.insert(ss,function(err){
+          console.log(err);
+        });
 
       }
     }
