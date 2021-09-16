@@ -41,7 +41,6 @@ function fetchData(){
       console.log('pipe error catched!')
       console.log(error);
     }else{
-      console.log(udb.collection);
       var cl_beijing_universal = udb.collection('cl_beijing_universal');
       console.log(body);
       var data = eval('('+body+')');
@@ -50,12 +49,12 @@ function fetchData(){
       var day = now.getDay();
       var hour = now.getHours();
       var min = now.getMinutes();
-
+      var dd = Math.floor(now/86400000)
       for(var i=0;i<list.length;i++){
         var ud = list[i];
         var area = ud.area;
-        var id = ud.material_id;
-        var _id = id + "_" + hour + "_" + min;
+
+        var _id = id + "_" + dd + "_" + hour + "_" + min;
         var subtitle = ud.subtitle;
         var title = ud.title;
         var label = ud.label;
