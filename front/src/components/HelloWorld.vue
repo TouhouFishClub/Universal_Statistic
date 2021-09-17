@@ -88,6 +88,11 @@
         </v-row>
       </v-col>
     </v-row>
+    <div class="test">
+      <div class="rect">
+        adfad
+      </div>
+    </div>
   </v-container>
 </template>
 
@@ -149,3 +154,12 @@
     }),
   }
 </script>
+<style lang="scss">
+.test {
+  .rect {
+    width: 100px;
+    height: 100px;
+    background-color: #ff0;
+  }
+}
+</style>
