@@ -52,7 +52,7 @@ function fetchData(){
       for(var i=0;i<list.length;i++){
         var ud = list[i];
         var area = ud.area;
-
+        var id = ud.id;
         var _id = id + "_" + dd + "_" + hour + "_" + min;
         var subtitle = ud.subtitle;
         var title = ud.title;
