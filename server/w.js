@@ -26,6 +26,7 @@ app.get('/get_waiting_by_date',function(req,res){
     var ret = {};
     ret.r=0;
     ret.d = result;
+    res.set('Content-Type','text/plain');
     res.send(JSON.stringify(ret));
   })
 })
