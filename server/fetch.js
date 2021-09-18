@@ -42,7 +42,6 @@ function fetchData(){
       console.log(error);
     }else{
       var cl_beijing_universal = udb.collection('cl_beijing_universal');
-      console.log(body);
       var data = eval('('+body+')');
       var list = data.data.list;
       var now = new Date();
@@ -53,13 +52,13 @@ function fetchData(){
       for(var i=0;i<list.length;i++){
         var ud = list[i];
         var area = ud.area;
-
+        var id = ud.id;
         var _id = id + "_" + dd + "_" + hour + "_" + min;
         var subtitle = ud.subtitle;
         var title = ud.title;
         var label = ud.label;
         var waiting_time = ud.waiting_time;
-        var ss = {'_id':_id,id:id,area:area,label:label,subtitle:subtitle,title:title,waiting_time:waiting_time,day:day,hour:hour,min:min,ts:now.getTime(),time:now};
+        var ss = {'_id':_id,id:id,area:area,label:label,subtitle:subtitle,title:title,waiting_time:waiting_time,day:day,date:dd,hour:hour,min:min,ts:now.getTime(),time:now};
         cl_beijing_universal.insert(ss,function(err){
           console.log(err);
         });
