@@ -18,7 +18,7 @@
         <div>欢迎，</div>
         <!--        <div>{{$store.state.account.birth}}</div>-->
       </v-sheet>
-      <NavigationList/>
+<!--      <NavigationList/>-->
 
     </v-navigation-drawer>
 
@@ -48,7 +48,6 @@
       copyright
     </v-footer>
 
-    <EditCard/>
   </v-app>
 </template>
 
@@ -59,6 +58,9 @@ export default {
   data: () => ({
     drawer: false,
   }),
+  mounted() {
+    this.$store.dispatch('fetchNowList')
+  },
   watch: {
     drawer(val) {
       if(val) {
