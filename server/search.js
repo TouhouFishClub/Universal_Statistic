@@ -14,4 +14,14 @@ function initDB(){
 }
 
 
-function getWaiting(date)
+function getWaiting(date,id,callback){
+  var cl_beijing_universal = udb.collection('cl_beijing_universal');
+  cl_beijing_universal.find({id:id,date:date}).toArray(function(err,result){
+    callback(result);
+  })
+}
+
+module.exports={
+  getWaiting
+}
+
