@@ -1,45 +1,54 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
+    <v-navigation-drawer
+        app
+        v-model="drawer"
+        fixed
+        :dark="$store.state.isDark"
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+      <v-sheet
+          class="pa-4"
+      >
+        <v-avatar
+            class="mb-4"
+            color="grey darken-1"
+            size="64"
+        ></v-avatar>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+        <div>欢迎，</div>
+        <!--        <div>{{$store.state.account.birth}}</div>-->
+      </v-sheet>
+      <NavigationList/>
+
+    </v-navigation-drawer>
+
+    <v-app-bar
+        app
+        :dark="$store.state.isDark"
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>Universal Statistic</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      <v-tooltip left>
+        <template v-slot:activator="{ on }">
+          <v-btn icon target="_blank" v-on="on" @click="$store.commit('tapTheme')">
+            <v-icon>{{$store.state.isDark ? 'mdi-weather-night' : 'mdi-white-balance-sunny'}}</v-icon>
+          </v-btn>
+        </template>
+        <span>{{$store.state.isDark ? '关闭da♂rk模式' : '开启da♂rk模式'}}</span>
+      </v-tooltip>
     </v-app-bar>
-
     <v-main>
-      <router-view/>
+      <router-view :drawer="drawer"></router-view>
     </v-main>
+
+
+    <v-footer app :dark="$store.state.isDark">
+      copyright
+    </v-footer>
+
+    <EditCard/>
   </v-app>
 </template>
 
@@ -47,9 +56,17 @@
 
 export default {
   name: 'App',
-
   data: () => ({
-    //
+    drawer: false,
   }),
+  watch: {
+    drawer(val) {
+      if(val) {
+        sessionStorage.setItem('openDrawer', true)
+      } else {
+        sessionStorage.removeItem('openDrawer')
+      }
+    }
+  },
 };
 </script>
