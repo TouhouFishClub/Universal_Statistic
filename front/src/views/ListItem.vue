@@ -71,7 +71,7 @@
   .list-item {
     .chip-item {
       position: absolute;
-      top: 130px;
+      top: 120px;
       right: 20px;
       display: flex;
       align-items: center;
