@@ -8,17 +8,18 @@
       mandatory
     >
       <v-list-item
-        v-for="item in items"
+        v-for="item in itemList"
         :key="item.title"
         link
         @click="clickItem(item)"
       >
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
+        <v-list-item-avatar>
+          <v-img :src="item.map_image"></v-img>
+        </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-title v-html="item.title"></v-list-item-title>
+          <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list-item-group>
@@ -26,31 +27,31 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: "NavigationList",
     data () {
       return {
-        items: [
-          { title: '列表', icon: 'mdi-clipboard-text', route: '/item/1' },
-          { title: '图表', icon: 'mdi-chart-line', route: '/item/2' },
-          { title: '设置', icon: 'mdi-cog', route: '/item/3' },
-        ],
         selectedItem: 0,
       }
     },
     beforeMount() {
-      this.selectedItem = this.items.findIndex(x => x.route == this.$route.path)
+      console.log(this.$route.params?.itemId)
+      this.selectedItem = this.itemList.findIndex(x => x.id == this.$route.params?.itemId)
     },
     methods: {
       clickItem(item) {
-        if(this.$route.path != item.route) {
-          this.$router.replace(item.route)
+        if(this.$route.path != `/item/${item.id}`) {
+          this.$router.replace(`/item/${item.id}`)
         }
       }
     },
+    computed: {
+      ...mapState(['itemList'])
+    },
     watch:{
-      $route(to,from){
-        this.selectedItem = this.items.findIndex(x => x.route == this.$route.path)
+      $route(){
+        this.selectedItem = this.itemList.findIndex(x => x.id == this.$route.params?.itemId)
       }
     },
   }
