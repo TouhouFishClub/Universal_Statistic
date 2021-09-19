@@ -7,19 +7,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isDark: false,
-    itemList: [],
-
-    // toast
-    toastMsg: '',
-    toastTs: 0,
+    itemList: []
   },
   mutations: {
     tapTheme(state) {
       state.isDark = !state.isDark
     },
-    showToast(state, msg) {
-
-    }
   },
   actions: {
     //TODO：所有 action 先使用挂载到 window 下的 axios 实例
@@ -29,7 +22,7 @@ export default new Vuex.Store({
           if(res.data?.data?.list?.length) {
             state.itemList = res.data.data.list
           } else {
-            commit('showToast', '读取数据错误')
+            $toast('读取数据错误', 1500, state.isDark ? 'light-theme' : '')
           }
         })
     },
