@@ -18,7 +18,7 @@
         <div>欢迎，</div>
         <!--        <div>{{$store.state.account.birth}}</div>-->
       </v-sheet>
-<!--      <NavigationList/>-->
+      <NavigationList/>
 
     </v-navigation-drawer>
 
@@ -52,12 +52,15 @@
 </template>
 
 <script>
-
+import NavigationList from "./components/NavigationList";
 export default {
   name: 'App',
   data: () => ({
     drawer: false,
   }),
+  components: {
+    NavigationList
+  },
   mounted() {
     this.$store.dispatch('fetchNowList')
   },
