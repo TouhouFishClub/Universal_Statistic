@@ -40,7 +40,14 @@
       </v-tooltip>
     </v-app-bar>
     <v-main>
-      <router-view :drawer="drawer"></router-view>
+      <div
+        class="main-container"
+        :class="{
+          dark: $store.state.isDark
+        }"
+      >
+        <router-view :drawer="drawer"></router-view>
+      </div>
     </v-main>
 
 
@@ -75,3 +82,14 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+  .main-container {
+    min-height: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    &.dark {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+</style>

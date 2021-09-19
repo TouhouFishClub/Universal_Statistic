@@ -1,5 +1,5 @@
 <template>
-  <div>这是所有项目列表</div>
+  <div>这是所有项目列表(建设中)</div>
 </template>
 
 <script>
