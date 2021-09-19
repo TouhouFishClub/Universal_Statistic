@@ -36,7 +36,6 @@
       }
     },
     beforeMount() {
-      console.log(this.$route.params?.itemId)
       this.selectedItem = this.itemList.findIndex(x => x.id == this.$route.params?.itemId)
     },
     methods: {

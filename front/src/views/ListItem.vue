@@ -4,6 +4,7 @@
       :dark="$store.state.isDark"
       max-width="500"
       class="mx-auto"
+      v-if="itemInfo"
     >
       <v-img
         height="150"
@@ -22,19 +23,27 @@
       <v-card-title>{{ itemInfo.title }}</v-card-title>
 
       <v-card-subtitle>{{ itemInfo.subtitle }}</v-card-subtitle>
-
     </v-card>
+
+    <ItemLineChart
+      :item-id="itemId"
+    />
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex'
+  import ItemLineChart from "@/components/ItemLineChart";
   export default {
     name: "ListItem",
+    components: {
+      ItemLineChart
+    },
     data() {
       return {
         itemInfo: null,
-        itemChartInfo: []
+        itemChartInfo: [],
+        itemId: null,
       }
     },
     computed: {
@@ -43,6 +52,7 @@
     methods: {
       fetchItemInfo() {
         let id = this.$route.params?.itemId
+        this.itemId = id
         this.itemInfo = this.itemList.filter(x => x.id == id)[0]
       }
     },
@@ -67,6 +77,7 @@
       align-items: center;
       padding: 0 10px;
       border-radius: 20px;
+      color: #fff;
       strong {
         font-size: 30px;
         margin-left: 5px;
