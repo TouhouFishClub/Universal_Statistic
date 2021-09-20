@@ -8,7 +8,7 @@
     >
       <v-img
         height="150"
-        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+        :src="`http://flanb.msharebox.com:6661/url?url=${itemInfo.map_image}`"
       ></v-img>
 
       <div

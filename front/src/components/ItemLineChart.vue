@@ -1,8 +1,8 @@
 <template>
   <div class="item-line-chart mx-auto mt-4">
-    {{itemId}}
+<!--    {{itemId}}-->
     <line-chart v-if="chartData" :chart-data="chartData" :options="options"></line-chart>
-    <button @click="fillData()">Randomize</button>
+<!--    <button @click="fillData()">Randomize</button>-->
   </div>
 </template>
 

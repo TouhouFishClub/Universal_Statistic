@@ -14,7 +14,7 @@
         @click="clickItem(item)"
       >
         <v-list-item-avatar>
-          <v-img :src="item.map_image"></v-img>
+          <v-img :src="`http://flanb.msharebox.com:6661/url?url=${item.map_image}`"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
