@@ -44,6 +44,19 @@ app.get('/list',function(req,res){
   }).pipe(res);
 })
 
+app.get('/url',function(req,res){
+  var data = req.query;
+  var url = data.url;
+  request({
+    url: url,
+    method: "GET"
+  }, function(error, response, body){
+    if(error&&error.code){
+      console.log('pipe error catched!')
+      console.log(error);
+    }
+  }).pipe(res);
+})
 
 var port = 6660;
 app.listen(port,function(){
