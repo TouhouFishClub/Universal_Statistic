@@ -65,10 +65,10 @@
         //   }
         // })
         // 改为仅显示9 - 22
-        let labelInfo = [...Array(156).keys()].map(x => {
+        let labelInfo = [...Array(52).keys()].map(x => {
           return {
-            h: (9 + ~~(x / 12)) % 24,
-            m: 5 * (x % 12)
+            h: (9 + ~~(x / 4)) % 24,
+            m: 15 * (x % 4)
           }
         })
         this.chartData = {
@@ -77,6 +77,9 @@
             return {
               label: `data -${dayOffset}`,
               fill: false,
+              spanGaps: true,
+              lineTension: 0,
+              borderJoinStyle: 'round',
               radius: 0,
               borderColor: [
                 '#f80c05',

@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isDark: false,
+    isDark: true,
     itemList: []
   },
   mutations: {
