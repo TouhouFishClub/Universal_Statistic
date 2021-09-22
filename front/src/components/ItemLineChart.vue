@@ -17,7 +17,18 @@
       return {
         chartData: null,
         options: {
-
+          scales: {
+            xAxes: [{
+              gridLines: {
+                color: 'rgba(150,150,150,0.3)'
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                color: 'rgba(150,150,150,0.3)'
+              }
+            }]
+          }
         },
         date: 0
       }
