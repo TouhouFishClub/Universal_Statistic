@@ -27,7 +27,6 @@ function run(){
 }
 
 
-fetchData()
 function fetchData(){
   var nowhours = new Date().getHours();
   if(nowhours<9||nowhours>21){
