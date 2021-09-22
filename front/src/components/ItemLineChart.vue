@@ -77,6 +77,7 @@
             return {
               label: `data -${dayOffset}`,
               fill: false,
+              spanGaps: true,
               radius: 0,
               borderColor: [
                 '#f80c05',
