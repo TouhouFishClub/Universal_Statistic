@@ -16,7 +16,7 @@ function initDB(){
 
 function getWaiting(date,id,callback){
   var cl_beijing_universal = udb.collection('cl_beijing_universal');
-  cl_beijing_universal.find({id:id,date:date}).toArray(function(err,result){
+  cl_beijing_universal.find({id:id,date:date,hour:{'$gte':9,'$lte':21}}).toArray(function(err,result){
     callback(result);
   })
 }
