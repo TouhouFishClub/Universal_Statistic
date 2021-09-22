@@ -79,6 +79,7 @@
               fill: false,
               spanGaps: true,
               lineTension: 0,
+              borderJoinStyle: 'round',
               radius: 0,
               borderColor: [
                 '#f80c05',
