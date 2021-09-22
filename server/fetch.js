@@ -27,6 +27,9 @@ function run(){
 }
 
 var listbody = "";
+function getlist(){
+  return listbody;
+}
 function fetchData(){
   var nowhours = new Date().getHours();
   if(nowhours<9||nowhours>21){
@@ -77,5 +80,5 @@ function fetchData(){
 }
 
 module.exports={
-  listbody
+  getlist
 }

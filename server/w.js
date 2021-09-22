@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 var request = require('request');
 const {getWaiting} = require('./search')
 
-const {listbody} = require('./fetch');
+const {getlist} = require('./fetch');
 
 app.get('/',function(req,res){
   res.send('ok')
@@ -32,8 +32,9 @@ app.get('/get_waiting_by_date',function(req,res){
 })
 
 app.get('/list',function(req,res){
-  if(listbody.length>1){
-    res.send(listbody);
+  if(getlist().length>1){
+    res.set('Content-Type','text/plain');
+    res.send(getlist());
   }else{
     var url = 'https://gw.app.universalbeijingresort.com/attraction/list?sort_type=0&support_express=0&suitable_children=0&accessibility=0&page=1&page_size=1000'
     var url2 = 'http://54.250.49.236:6660/url?url='+encodeURIComponent(url);
