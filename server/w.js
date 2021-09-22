@@ -36,7 +36,6 @@ app.get('/get_waiting_by_date_dur',function(req,res){
   var id = data.id;
   var date1 = parseInt(data.date1);
   var date2= parseInt(data.date2);
-  console.log(id,date);
   getWaitingDur(date1,date2,id,function(result){
     var ret = {};
     ret.r=0;
