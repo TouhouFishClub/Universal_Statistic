@@ -47,9 +47,16 @@
         })
       },
       fillData (data) {
-        let labelInfo = [...Array(288).keys()].map(x => {
+        // let labelInfo = [...Array(288).keys()].map(x => {
+        //   return {
+        //     h: (8 + ~~(x / 12)) % 24,
+        //     m: 5 * (x % 12)
+        //   }
+        // })
+        // 改为仅显示9 - 22
+        let labelInfo = [...Array(156).keys()].map(x => {
           return {
-            h: (8 + ~~(x / 12)) % 24,
+            h: (9 + ~~(x / 12)) % 24,
             m: 5 * (x % 12)
           }
         })
@@ -60,8 +67,26 @@
               label: `data -${dayOffset}`,
               fill: false,
               radius: 0,
-              borderColor: ['#f80c05', '#f8bdac', '#f8f8a5', '#f8adec', '#9ff8ab', '#a7f8e4', '#c8c7f8', '#f8f8a5'][dayOffset],
-              backgroundColor: ['#f80c05', '#f8bdac', '#f8f8a5', '#f8adec', '#9ff8ab', '#a7f8e4', '#c8c7f8', '#f8f8a5'][dayOffset],
+              borderColor: [
+                '#f80c05',
+                '#f8bdac',
+                '#f8f8a5',
+                '#f8adec',
+                '#9ff8ab',
+                '#a7f8e4',
+                '#c8c7f8',
+                '#a5b0f8'
+              ][dayOffset],
+              backgroundColor: [
+                '#f80c05',
+                '#f8bdac',
+                '#f8f8a5',
+                '#f8adec',
+                '#9ff8ab',
+                '#a7f8e4',
+                '#c8c7f8',
+                '#a5b0f8'
+              ][dayOffset],
               // data: dayInfo.d.map(d => d.waiting_time)
               data: labelInfo.map(x => dayInfo.d.find(f => f.hour == x.h && f.min == x.m)?.waiting_time)
             }
