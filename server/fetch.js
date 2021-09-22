@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var mongourl = 'mongodb://192.168.17.52:27050/db_resort';
 var path = require('path');
-var request = require("request");
+const request = require("request")
 var fs = require('fs');
 
 
@@ -16,7 +16,7 @@ function initDB(){
 run();
 function run(){
   var now = new Date().getTime();
-  var left = 310000 - now%300000;
+  var left = 910000 - now%900000;
   console.log('left seconds:'+left)
   setTimeout(function(){
     fetchData();
@@ -27,20 +27,29 @@ function run(){
 }
 
 
-
+fetchData()
 function fetchData(){
+  var nowhours = new Date().getHours();
+  if(nowhours<9||nowhours>21){
+    return;
+  }
   console.log('now fetching data:');
   var url = 'https://gw.app.universalbeijingresort.com/attraction/list?sort_type=0&support_express=0&suitable_children=0&accessibility=0&page=1&page_size=1000';
+  var url2 = 'http://54.238.79.53:6660/url?url='+encodeURIComponent(url);
+  console.log(url2);
   request({
-    url: url,
+    url: url2,
+    //proxy: 'https://127.0.0.1:1080',
     method: "GET",
     headers:{
+      'Content-Type':'application/json'
     }
   }, function(error, response, body){
     if(error&&error.code){
-      console.log('pipe error catched!')
+      console.log('pip1e error catched!')
       console.log(error);
     }else{
+      console.log(body)
       var cl_beijing_universal = udb.collection('cl_beijing_universal');
       var data = eval('('+body+')');
       var list = data.data.list;
