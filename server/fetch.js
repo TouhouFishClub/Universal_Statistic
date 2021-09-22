@@ -26,7 +26,7 @@ function run(){
   },left)
 }
 
-
+var listbody = "";
 function fetchData(){
   var nowhours = new Date().getHours();
   if(nowhours<9||nowhours>21){
@@ -34,7 +34,7 @@ function fetchData(){
   }
   console.log('now fetching data:');
   var url = 'https://gw.app.universalbeijingresort.com/attraction/list?sort_type=0&support_express=0&suitable_children=0&accessibility=0&page=1&page_size=1000';
-  var url2 = 'http://54.238.79.53:6660/url?url='+encodeURIComponent(url);
+  var url2 = 'http://13.113.185.34:6660/url?url='+encodeURIComponent(url);
   console.log(url2);
   request({
     url: url2,
@@ -48,7 +48,7 @@ function fetchData(){
       console.log('pip1e error catched!')
       console.log(error);
     }else{
-      console.log(body)
+      listbody = body;
       var cl_beijing_universal = udb.collection('cl_beijing_universal');
       var data = eval('('+body+')');
       var list = data.data.list;
@@ -74,4 +74,8 @@ function fetchData(){
       }
     }
   })
+}
+
+module.exports={
+  listbody
 }
