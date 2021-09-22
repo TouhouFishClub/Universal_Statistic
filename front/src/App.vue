@@ -11,11 +11,13 @@
       >
         <v-avatar
             class="mb-4"
-            color="grey darken-1"
+            color="#036bd9"
             size="64"
-        ></v-avatar>
+        >
+          <img src="@/assets/logo.svg"/>
+        </v-avatar>
 
-        <div>欢迎，</div>
+        <div>北京环球度假村</div>
         <!--        <div>{{$store.state.account.birth}}</div>-->
       </v-sheet>
       <NavigationList/>
