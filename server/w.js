@@ -20,8 +20,7 @@ app.get('/a',function(req,res){
 app.get('/get_waiting_by_date',function(req,res){
   var data = req.query;
   var id = data.id;
-  var date = parseInt(data.date);
-  console.log(id,date);
+  var date = data.date;
   getWaiting(date,id,function(result){
     var ret = {};
     ret.r=0;

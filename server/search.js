@@ -15,8 +15,10 @@ function initDB(){
 
 
 function getWaiting(date,id,callback){
+  var datea = date.split(',');
+  var dataaa = dataa.map(function(e){return parseInt(e.trim())})
   var cl_beijing_universal = udb.collection('cl_beijing_universal');
-  cl_beijing_universal.find({id:id,date:date,hour:{'$gte':9,'$lte':21},min:{'$in':[0,15,30,45]}}).toArray(function(err,result){
+  cl_beijing_universal.find({id:id,date:{'$in':dataaa},hour:{'$gte':9,'$lte':21},min:{'$in':[0,15,30,45]}}).toArray(function(err,result){
     callback(result);
   })
 }
