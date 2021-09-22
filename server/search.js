@@ -21,7 +21,19 @@ function getWaiting(date,id,callback){
   })
 }
 
+function getWaitingDur(date1,date2,id,callback){
+  if(date2-date1>10){
+    callback([]);
+    return;
+  }
+  var cl_beijing_universal = udb.collection('cl_beijing_universal');
+  cl_beijing_universal.find({id:id,date:{'$gte':date1,'$lte':date2},hour:{'$gte':9,'$lte':21},min:{'$in':[0,15,30,45]}}).toArray(function(err,result){
+    callback(result);
+  })
+}
+
 module.exports={
-  getWaiting
+  getWaiting,
+  getWaitingDur
 }
 

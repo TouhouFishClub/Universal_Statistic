@@ -6,7 +6,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 var request = require('request');
-const {getWaiting} = require('./search')
+const {getWaiting,getWaitingDur} = require('./search')
 
 const {getlist} = require('./fetch');
 
@@ -23,6 +23,21 @@ app.get('/get_waiting_by_date',function(req,res){
   var date = parseInt(data.date);
   console.log(id,date);
   getWaiting(date,id,function(result){
+    var ret = {};
+    ret.r=0;
+    ret.d = result;
+    res.set('Content-Type','text/plain');
+    res.send(JSON.stringify(ret));
+  })
+})
+
+app.get('/get_waiting_by_date_dur',function(req,res){
+  var data = req.query;
+  var id = data.id;
+  var date1 = parseInt(data.date1);
+  var date2= parseInt(data.date2);
+  console.log(id,date);
+  getWaitingDur(date1,date2,id,function(result){
     var ret = {};
     ret.r=0;
     ret.d = result;
