@@ -13,13 +13,13 @@ module.exports = {
   configureWebpack: config => {
     if (isProduction) {
       config.externals = {
-        'vue': 'vue',
-        'vue-router': 'vue-router',
-        'vuex': 'vuex',
+        'vue': 'Vue',
+        'vue-router': 'VueRouter',
+        'vuex': 'Vuex',
         'axios': 'axios',
-        'vuetify': 'vuetify',
+        'vuetify': 'Vuetify',
         'chart.js': 'chart.js',
-        'vue-chartjs': 'vue-chartjs',
+        'vue-chartjs': 'VueChartjs',
       }
     }
   },
