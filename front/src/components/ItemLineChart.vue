@@ -6,8 +6,6 @@
         sm="6"
         class="py-2"
     >
-      <p>Multiple</p>
-
       <v-btn-toggle
           :value="stackedChart"
           dense
@@ -39,21 +37,7 @@
     data () {
       return {
         chartData: null,
-        options: {
-          scales: {
-            xAxes: [{
-              gridLines: {
-                color: 'rgba(150,150,150,0.3)'
-              }
-            }],
-            yAxes: [{
-              stacked: false,
-              gridLines: {
-                color: 'rgba(150,150,150,0.3)'
-              }
-            }]
-          }
-        },
+        options: null,
         date: 0,
         dataTmp: null
       }
@@ -84,6 +68,53 @@
         })
       },
       fillData (data) {
+        let self = this, yAxes
+        if(this.stackedChart) {
+          yAxes = [{
+            id: 'history',
+            position: 'right',
+            stacked: self.stackedChart,
+            ticks: {
+              min: 0
+            },
+            gridLines: {
+              color: 'rgba(150,150,150,0.3)'
+            }
+          }, {
+            id: 'today',
+            position: 'left',
+            ticks: {
+              min: 0
+            },
+            gridLines: {
+              color: 'rgba(150,150,150,0.3)'
+            }
+          }]
+        } else {
+          yAxes = [{
+            id: 'normal',
+            position: 'left',
+            ticks: {
+              min: 0
+            },
+            gridLines: {
+              color: 'rgba(150,150,150,0.3)'
+            }
+          }]
+        }
+        // option必须全部更新
+        self.options = {
+          scales: {
+            xAxes: [{
+              gridLines: {
+                color: 'rgba(150,150,150,0.3)'
+              }
+            }],
+            yAxes
+          }
+        }
+
+        // 更新data
         // let labelInfo = [...Array(288).keys()].map(x => {
         //   return {
         //     h: (8 + ~~(x / 12)) % 24,
@@ -103,12 +134,14 @@
           datasets: data.map((dayInfo, dayOffset) => {
             return {
               label: `${dayOffset ? dayOffset + '天前' : '今天'}`,
-              fill: this.stackedChart,
+              fill: dayOffset ? this.stackedChart: false,
               spanGaps: true,
               lineTension: 0,
               borderJoinStyle: 'round',
               radius: 0,
-              borderWidth: dayOffset ? (this.stackedChart ? 3 : 1) : 3,
+              borderWidth: dayOffset ? (this.stackedChart ? 0 : 1) : 3,
+              yAxisID: this.stackedChart ? (dayOffset ? 'history': 'today') : 'normal',
+              order: dayOffset ? 1 : 0,
               borderColor: [
                 '#f80c05',
                 '#f8bdac',
