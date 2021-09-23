@@ -18,7 +18,7 @@ module.exports = {
         'vuex': 'Vuex',
         'axios': 'axios',
         'vuetify': 'Vuetify',
-        'chart.js': 'chart.js',
+        'chart.js': 'Chart',
         'vue-chartjs': 'VueChartjs',
       }
     }
