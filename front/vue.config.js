@@ -19,7 +19,7 @@ module.exports = {
         'axios': 'axios',
         'vuetify': 'Vuetify',
         'chart.js': 'Chart',
-        'vue-chartjs': 'VueChartjs',
+        'vue-chartjs': 'vue-chartjs',
       }
     }
   },
