@@ -115,11 +115,29 @@
                 '#a5b0f8'
               ][dayOffset],
               // data: dayInfo.d.map(d => d.waiting_time)
-              data: labelInfo.map(x => dayInfo.d.find(f => f.hour == x.h && f.min == x.m)?.waiting_time)
+              data: this.insertData(labelInfo.map(x => dayInfo.d.find(f => f.hour == x.h && f.min == x.m)?.waiting_time))
             }
           })
         }
       },
+      insertData(data) {
+        if(data.length) {
+          let st = -1
+          for(let i = 0; i < data.length; i ++) {
+            if(typeof data[i] == 'number') {
+              if(st + 1 == i || st == -1) {
+                st = i
+              } else {
+                for(let j = i - 1; j > st; j --) {
+                  data[j] = ~~((data[i] - data[st]) / (i - st) * (j - st) + data[st])
+                }
+                st = i
+              }
+            }
+          }
+        }
+        return data
+      }
     },
     computed: {
       ...mapState(['stackedChart', 'renderChart'])
