@@ -9,6 +9,7 @@ export default new Vuex.Store({
     isDark: true,
     itemList: [],
     stackedChart: false,
+    renderChart: 0,
   },
   mutations: {
     tapTheme(state) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
         return
       }
       state.stackedChart = type
+    },
+    attachRenderData(state) {
+      state.renderChart = Date.now()
     }
   },
   actions: {

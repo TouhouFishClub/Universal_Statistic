@@ -1,30 +1,6 @@
 <template>
   <div class="list-item">
-    <v-card
-      :dark="$store.state.isDark"
-      max-width="500"
-      class="mx-auto"
-      v-if="itemInfo"
-    >
-      <v-img
-        height="150"
-        :src="`http://flanb.msharebox.com:6661/url?url=${itemInfo.map_image}`"
-      ></v-img>
-
-      <div
-        class="chip-item"
-        :class="[itemInfo.waiting_time > 60 ? 'error': 'primary']"
-      >
-        <span>等待</span>
-        <strong>{{ itemInfo.waiting_time }}</strong>
-        <span>分钟</span>
-      </div>
-
-      <v-card-title>{{ itemInfo.title }}</v-card-title>
-
-      <v-card-subtitle>{{ itemInfo.subtitle }}</v-card-subtitle>
-    </v-card>
-
+    <ItemInfo :item-info="itemInfo"/>
     <ItemLineChart
       :item-id="itemId"
     />
@@ -34,10 +10,12 @@
 <script>
   import { mapState } from 'vuex'
   import ItemLineChart from "@/components/ItemLineChart";
+  import ItemInfo from "@/components/ItemInfo";
   export default {
     name: "ListItem",
     components: {
-      ItemLineChart
+      ItemLineChart,
+      ItemInfo,
     },
     data() {
       return {
@@ -69,21 +47,6 @@
 
 <style lang="scss" scoped>
   .list-item {
-    .chip-item {
-      position: absolute;
-      top: 120px;
-      right: 20px;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      border-radius: 20px;
-      color: #fff;
-      strong {
-        font-size: 30px;
-        margin-left: 5px;
-        margin-right: 5px;
-      }
-    }
-  }
 
+  }
 </style>

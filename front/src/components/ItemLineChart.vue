@@ -21,8 +21,10 @@
         </v-btn>
       </v-btn-toggle>
     </v-col>
-    <line-chart v-if="chartData" :chart-data="chartData" :options="options"></line-chart>
-<!--    <button @click="fillData()">Randomize</button>-->
+    <line-chart
+        v-if="chartData"
+        :chart-data="chartData"
+    ></line-chart>
   </div>
 </template>
 
@@ -37,7 +39,6 @@
     data () {
       return {
         chartData: null,
-        options: null,
         date: 0,
         dataTmp: null
       }
@@ -47,9 +48,6 @@
         type: String,
         default: ''
       },
-    },
-    mounted () {
-      this.fillData()
     },
     methods: {
       initData() {
@@ -68,52 +66,6 @@
         })
       },
       fillData (data) {
-        let self = this, yAxes
-        if(this.stackedChart) {
-          yAxes = [{
-            id: 'history',
-            position: 'right',
-            stacked: self.stackedChart,
-            ticks: {
-              min: 0
-            },
-            gridLines: {
-              color: 'rgba(150,150,150,0.3)'
-            }
-          }, {
-            id: 'today',
-            position: 'left',
-            ticks: {
-              min: 0
-            },
-            gridLines: {
-              color: 'rgba(150,150,150,0.3)'
-            }
-          }]
-        } else {
-          yAxes = [{
-            id: 'normal',
-            position: 'left',
-            ticks: {
-              min: 0
-            },
-            gridLines: {
-              color: 'rgba(150,150,150,0.3)'
-            }
-          }]
-        }
-        // option必须全部更新
-        self.options = {
-          scales: {
-            xAxes: [{
-              gridLines: {
-                color: 'rgba(150,150,150,0.3)'
-              }
-            }],
-            yAxes
-          }
-        }
-
         // 更新data
         // let labelInfo = [...Array(288).keys()].map(x => {
         //   return {
@@ -170,16 +122,15 @@
       },
     },
     computed: {
-      ...mapState(['stackedChart'])
+      ...mapState(['stackedChart', 'renderChart'])
     },
     watch: {
       itemId(val) {
         this.initData()
       },
-      stackedChart(val) {
+      renderChart(val) {
         if(this.dataTmp) {
           this.fillData(this.dataTmp)
-          this.options.scales.yAxes[0].stacked = val
         }
       }
     }
