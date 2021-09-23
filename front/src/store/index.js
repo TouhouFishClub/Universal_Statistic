@@ -7,12 +7,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isDark: true,
-    itemList: []
+    itemList: [],
+    stackedChart: false,
   },
   mutations: {
     tapTheme(state) {
       state.isDark = !state.isDark
     },
+    setStackedChart(state, type) {
+      if(type == state.stackedChart) {
+        return
+      }
+      state.stackedChart = type
+    }
   },
   actions: {
     //TODO：所有 action 先使用挂载到 window 下的 axios 实例

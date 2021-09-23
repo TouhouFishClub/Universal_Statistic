@@ -1,6 +1,26 @@
 <template>
   <div class="item-line-chart mx-auto mt-4">
 <!--    {{itemId}}-->
+    <v-col
+        cols="12"
+        sm="6"
+        class="py-2"
+    >
+      <v-btn-toggle
+          :value="stackedChart"
+          dense
+          :dark="$store.state.isDark"
+      >
+        <v-btn :value="false" @click="$store.commit('setStackedChart', false)">
+          <v-icon>mdi-chart-line</v-icon>
+          <span>普通显示</span>
+        </v-btn>
+        <v-btn :value="true" @click="$store.commit('setStackedChart', true)">
+          <v-icon>mdi-chart-line-stacked</v-icon>
+          <span>堆叠显示</span>
+        </v-btn>
+      </v-btn-toggle>
+    </v-col>
     <line-chart v-if="chartData" :chart-data="chartData" :options="options"></line-chart>
 <!--    <button @click="fillData()">Randomize</button>-->
   </div>
@@ -8,6 +28,7 @@
 
 <script>
   import LineChart from '@/components/chart/LineChart.js'
+  import { mapState } from 'vuex'
 
   export default {
     components: {
@@ -16,21 +37,9 @@
     data () {
       return {
         chartData: null,
-        options: {
-          scales: {
-            xAxes: [{
-              gridLines: {
-                color: 'rgba(150,150,150,0.3)'
-              }
-            }],
-            yAxes: [{
-              gridLines: {
-                color: 'rgba(150,150,150,0.3)'
-              }
-            }]
-          }
-        },
-        date: 0
+        options: null,
+        date: 0,
+        dataTmp: null
       }
     },
     props: {
@@ -49,6 +58,7 @@
       },
       async getAllData() {
         let allData = await Promise.all([0, 1, 2, 3, 4, 5, 6, 7].map(offset => this.fetchDate(this.itemId, this.date - offset)))
+        this.dataTmp = allData
         this.fillData(allData)
       },
       fetchDate(id, date) {
@@ -58,29 +68,80 @@
         })
       },
       fillData (data) {
+        let self = this, yAxes
+        if(this.stackedChart) {
+          yAxes = [{
+            id: 'history',
+            position: 'right',
+            stacked: self.stackedChart,
+            ticks: {
+              min: 0
+            },
+            gridLines: {
+              color: 'rgba(150,150,150,0.3)'
+            }
+          }, {
+            id: 'today',
+            position: 'left',
+            ticks: {
+              min: 0
+            },
+            gridLines: {
+              color: 'rgba(150,150,150,0.3)'
+            }
+          }]
+        } else {
+          yAxes = [{
+            id: 'normal',
+            position: 'left',
+            ticks: {
+              min: 0
+            },
+            gridLines: {
+              color: 'rgba(150,150,150,0.3)'
+            }
+          }]
+        }
+        // option必须全部更新
+        self.options = {
+          scales: {
+            xAxes: [{
+              gridLines: {
+                color: 'rgba(150,150,150,0.3)'
+              }
+            }],
+            yAxes
+          }
+        }
+
+        // 更新data
         // let labelInfo = [...Array(288).keys()].map(x => {
         //   return {
         //     h: (8 + ~~(x / 12)) % 24,
         //     m: 5 * (x % 12)
         //   }
         // })
-        // 改为仅显示9 - 22
+        // 改为仅显示9 - 22, 间隔15分钟
         let labelInfo = [...Array(52).keys()].map(x => {
           return {
             h: (9 + ~~(x / 4)) % 24,
             m: 15 * (x % 4)
           }
         })
+
         this.chartData = {
           labels : labelInfo.map(x => `${x.h}:${x.m}`),
           datasets: data.map((dayInfo, dayOffset) => {
             return {
-              label: `data -${dayOffset}`,
-              fill: false,
+              label: `${dayOffset ? dayOffset + '天前' : '今天'}`,
+              fill: dayOffset ? this.stackedChart: false,
               spanGaps: true,
               lineTension: 0,
               borderJoinStyle: 'round',
               radius: 0,
+              borderWidth: dayOffset ? (this.stackedChart ? 0 : 1) : 3,
+              yAxisID: this.stackedChart ? (dayOffset ? 'history': 'today') : 'normal',
+              order: dayOffset ? 1 : 0,
               borderColor: [
                 '#f80c05',
                 '#f8bdac',
@@ -108,9 +169,18 @@
         }
       },
     },
+    computed: {
+      ...mapState(['stackedChart'])
+    },
     watch: {
       itemId(val) {
         this.initData()
+      },
+      stackedChart(val) {
+        if(this.dataTmp) {
+          this.fillData(this.dataTmp)
+          this.options.scales.yAxes[0].stacked = val
+        }
       }
     }
   }
