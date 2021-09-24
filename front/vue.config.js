@@ -7,6 +7,7 @@ const patterns = [
 ]
 
 module.exports = {
+  publicPath: isProduction ? './' : '/',
   // transpileDependencies: [
   //   'vuetify'
   // ],
