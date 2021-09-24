@@ -120,6 +120,9 @@
           })
         }
       },
+      createLabel(dayOffset) {
+        return `x月x日（是否公休）`
+      },
       insertData(data) {
         if(data.length) {
           let st = -1
