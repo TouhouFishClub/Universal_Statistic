@@ -1,14 +1,14 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify/lib/framework';
-import zhHans from 'vuetify/lib/locale/zh-Hans';
+import Vuetify from 'vuetify';
+// import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify);
 
-export default new Vuetify({
+const opts = {
   theme: {
-      options: {
-        customProperties: true,
-      },
+    options: {
+      customProperties: true,
+    },
     themes: {
       light: {
         primary: '#007BFF',
@@ -21,8 +21,6 @@ export default new Vuetify({
       },
     },
   },
-    lang: {
-      locales: { zhHans },
-      current: 'zhHans',
-    },
-});
+}
+
+export default new Vuetify(opts)

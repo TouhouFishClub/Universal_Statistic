@@ -2,14 +2,20 @@ const isProduction = process.env.NODE_ENV === 'production'
 const path = require('path')
 
 const patterns = [
-  path.join(__dirname, 'node_modules/vuetify/dist/vuetify.css'),
-  path.join(__dirname, 'node_modules/@mdi/font/css/materialdesignicons.min.css'),
+  path.resolve(__dirname, './node_modules/vuetify/dist/vuetify.min.css'),
+  // path.resolve(__dirname, './node_modules/@mdi/font/css/materialdesignicons.min.css')
 ]
 
 module.exports = {
-  transpileDependencies: [
-    'vuetify'
-  ],
+  // transpileDependencies: [
+  //   'vuetify'
+  // ],
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'css',
+      patterns: isProduction ? [] : patterns
+    }
+  },
   configureWebpack: config => {
     if (isProduction) {
       config.externals = {
@@ -21,12 +27,6 @@ module.exports = {
         'chart.js': 'Chart',
         'vue-chartjs': 'VueChartJs',
       }
-    }
-  },
-  pluginOptions: {
-    'style-resources-loader': {
-      preProcessor: 'css',
-      patterns: isProduction ? [] : patterns
     }
   },
   chainWebpack: config => {
