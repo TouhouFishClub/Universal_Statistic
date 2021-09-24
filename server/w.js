@@ -26,6 +26,7 @@ app.get('/get_waiting_by_date',function(req,res){
     ret.r=0;
     ret.d = result;
     res.set('Content-Type','text/plain');
+    res.set("Access-Control-Allow-Origin", "*");
     res.send(JSON.stringify(ret));
   })
 })
@@ -40,6 +41,7 @@ app.get('/get_waiting_by_date_dur',function(req,res){
     ret.r=0;
     ret.d = result;
     res.set('Content-Type','text/plain');
+    res.set("Access-Control-Allow-Origin", "*");
     res.send(JSON.stringify(ret));
   })
 })
@@ -49,6 +51,7 @@ app.get('/list',function(req,res){
     res.set('Content-Type','text/plain');
     res.send(getlist());
   }else{
+    res.set("Access-Control-Allow-Origin", "*");
     var url = 'https://gw.app.universalbeijingresort.com/attraction/list?sort_type=0&support_express=0&suitable_children=0&accessibility=0&page=1&page_size=1000'
     var url2 = 'http://54.250.49.236:6660/url?url='+encodeURIComponent(url);
     request({
