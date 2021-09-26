@@ -30,6 +30,7 @@
 
 <script>
   import LineChart from '@/components/chart/LineChart.js'
+  import createLabel from '@/utils/holiday.js'
   import { mapState } from 'vuex'
 
   export default {
@@ -85,7 +86,7 @@
           labels : labelInfo.map(x => `${x.h}:${x.m}`),
           datasets: data.map((dayInfo, dayOffset) => {
             return {
-              label: `${dayOffset ? dayOffset + '天前' : '今天'}`,
+              label: `${dayOffset ? `${dayOffset}天前` : '今天'}${this.createLabelInfo(dayOffset)}`,
               fill: dayOffset ? this.stackedChart: false,
               spanGaps: true,
               lineTension: 0,
@@ -120,8 +121,9 @@
           })
         }
       },
-      createLabel(dayOffset) {
-        return `x月x日（是否公休）`
+      createLabelInfo(dayOffset) {
+        let label = createLabel(this.date - dayOffset)
+        return label ? `（${label}）` : ''
       },
       insertData(data) {
         if(data.length) {
