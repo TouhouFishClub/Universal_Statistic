@@ -34,6 +34,14 @@
       <v-spacer></v-spacer>
       <v-tooltip left>
         <template v-slot:activator="{ on }">
+          <v-btn icon target="_blank" v-on="on" @click="$router.replace('/menu')">
+            <v-icon>mdi-home</v-icon>
+          </v-btn>
+        </template>
+        <span>回到首页</span>
+      </v-tooltip>
+      <v-tooltip left>
+        <template v-slot:activator="{ on }">
           <v-btn icon target="_blank" v-on="on" @click="$store.commit('tapTheme')">
             <v-icon>{{$store.state.isDark ? 'mdi-weather-night' : 'mdi-white-balance-sunny'}}</v-icon>
           </v-btn>
