@@ -51,7 +51,9 @@ function fetchData(){
       console.log('pip1e error catched!')
       console.log(error);
     }else{
-      listbody = body;
+      var listjson = eval('('+body+')');
+      listjson.ts = new Date().getTime()
+      listbody = JSON.parse(listjson);
       var cl_beijing_universal = udb.collection('cl_beijing_universal');
       var data = eval('('+body+')');
       var list = data.data.list;
