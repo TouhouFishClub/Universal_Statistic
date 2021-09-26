@@ -12,8 +12,9 @@ function initDB(){
     udb=db.db('db_resort');
   });
 }
-
+fetchData(1);
 run();
+
 function run(){
   var now = new Date().getTime();
   var left = 910000 - now%900000;
@@ -30,7 +31,7 @@ var listbody = "";
 function getlist(){
   return listbody;
 }
-function fetchData(){
+function fetchData(nosave){
   var nowhours = new Date().getHours();
   if(nowhours<9||nowhours>21){
     return;
@@ -51,28 +52,48 @@ function fetchData(){
       console.log('pip1e error catched!')
       console.log(error);
     }else{
-      listbody = body;
-      var cl_beijing_universal = udb.collection('cl_beijing_universal');
-      var data = eval('('+body+')');
-      var list = data.data.list;
-      var now = new Date();
-      var day = now.getDay();
-      var hour = now.getHours();
-      var min = now.getMinutes();
-      var dd = Math.floor(now/86400000)
-      for(var i=0;i<list.length;i++){
-        var ud = list[i];
-        var area = ud.area;
-        var id = ud.id;
-        var _id = id + "_" + dd + "_" + hour + "_" + min;
-        var subtitle = ud.subtitle;
-        var title = ud.title;
-        var label = ud.label;
-        var waiting_time = ud.waiting_time;
-        var ss = {'_id':_id,id:id,area:area,label:label,subtitle:subtitle,title:title,waiting_time:waiting_time,day:day,date:dd,hour:hour,min:min,ts:now.getTime(),time:now};
-        cl_beijing_universal.insert(ss,function(err){
-          console.log(err);
-        });
+      var listjson = eval('('+body+')');
+      listjson.ts = new Date().getTime()
+      listbody = JSON.stringify(listjson);
+      if(nosave){
+
+      }else{
+        var cl_beijing_universal = udb.collection('cl_beijing_universal');
+        var data = eval('('+body+')');
+        var list = data.data.list;
+        var now = new Date();
+        var day = now.getDay();
+        var hour = now.getHours();
+        var min = now.getMinutes();
+        var dd = Math.floor(now/86400000)
+        for(var i=0;i<list.length;i++) {
+          var ud = list[i];
+          var area = ud.area;
+          var id = ud.id;
+          var _id = id + "_" + dd + "_" + hour + "_" + min;
+          var subtitle = ud.subtitle;
+          var title = ud.title;
+          var label = ud.label;
+          var waiting_time = ud.waiting_time;
+          var ss = {
+            '_id': _id,
+            id: id,
+            area: area,
+            label: label,
+            subtitle: subtitle,
+            title: title,
+            waiting_time: waiting_time,
+            day: day,
+            date: dd,
+            hour: hour,
+            min: min,
+            ts: now.getTime(),
+            time: now
+          };
+          cl_beijing_universal.insert(ss, function (err) {
+            console.log(err);
+          });
+        }
 
       }
     }
