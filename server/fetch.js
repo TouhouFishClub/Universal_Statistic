@@ -54,7 +54,7 @@ function fetchData(nosave){
     }else{
       var listjson = eval('('+body+')');
       listjson.ts = new Date().getTime()
-      listbody = JSON.parse(listjson);
+      listbody = JSON.stringify(listjson);
       if(nosave){
 
       }else{
