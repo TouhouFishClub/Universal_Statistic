@@ -4,12 +4,12 @@
     nav
   >
     <v-list-item-group
-      v-model="selectedItem"
+      :value="selectedItem"
       mandatory
     >
       <v-list-item
-        v-for="item in itemList"
-        :key="item.title"
+        v-for="(item, i) in itemList"
+        :key="i"
         link
         @click="clickItem(item)"
       >
