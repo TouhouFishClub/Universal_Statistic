@@ -1,6 +1,5 @@
 <template>
   <div class="menu">
-    <p>这是所有项目列表(建设中)</p>
     <ItemInfo
         v-for="itemInfo in itemList"
         :item-info="itemInfo"
