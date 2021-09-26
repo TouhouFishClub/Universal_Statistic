@@ -88,6 +88,7 @@
             return {
               label: `${dayOffset ? `${dayOffset}天前` : '今天'}${this.createLabelInfo(dayOffset)}`,
               fill: dayOffset ? this.stackedChart: false,
+              hidden: this.checkHoliday(this.date - dayOffset) != this.checkHoliday(this.date),
               spanGaps: true,
               lineTension: 0,
               borderJoinStyle: 'round',
@@ -124,6 +125,10 @@
       createLabelInfo(dayOffset) {
         let label = createLabel(this.date - dayOffset)
         return label ? `（${label}）` : ''
+      },
+      checkHoliday(dayOffset) {
+        let label = createLabel(dayOffset)
+        return label && !label.endsWith('补班')
       },
       insertData(data) {
         if(data.length) {
