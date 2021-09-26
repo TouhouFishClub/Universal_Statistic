@@ -27,7 +27,7 @@
     <ItemInfo
         v-for="itemInfo in itemList"
         :item-info="itemInfo"
-        class="item-card"
+        class="mb-4"
     />
   </div>
 </template>
@@ -58,8 +58,6 @@
 
 <style lang="scss" scoped>
   .menu {
-    .item-card {
-      margin-bottom: 20px;
-    }
+    
   }
 </style>
