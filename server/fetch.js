@@ -12,10 +12,10 @@ function initDB(){
     udb=db.db('db_resort');
   });
 }
-
+fetchData(1);
 run();
+
 function run(){
-  fetchData(1);
   var now = new Date().getTime();
   var left = 910000 - now%900000;
   console.log('left seconds:'+left)
