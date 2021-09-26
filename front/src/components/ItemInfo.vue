@@ -29,12 +29,7 @@
 <script>
 export default {
   name: "ItemInfo",
-  props: ['itemInfo'],
-  methods: {
-    test() {
-      console.log(1111)
-    }
-  }
+  props: ['itemInfo']
 }
 </script>
 

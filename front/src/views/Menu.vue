@@ -2,7 +2,7 @@
   <div class="menu">
 
     <v-alert
-        color="cyan"
+        color="primary"
         border="left"
         elevation="2"
         colored-border
