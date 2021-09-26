@@ -4,6 +4,7 @@
       max-width="500"
       class="mx-auto"
       v-if="itemInfo"
+      @click="$router.replace(`/item/${itemInfo.id}`)"
   >
     <v-img
         height="150"
@@ -28,7 +29,12 @@
 <script>
 export default {
   name: "ItemInfo",
-  props: ['itemInfo']
+  props: ['itemInfo'],
+  methods: {
+    test() {
+      console.log(1111)
+    }
+  }
 }
 </script>
 

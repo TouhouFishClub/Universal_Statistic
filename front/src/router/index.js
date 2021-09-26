@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+const originalReplace = VueRouter.prototype.replace
+
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err)
+}
 
 Vue.use(VueRouter)
 
