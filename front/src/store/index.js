@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     isDark: true,
     itemList: [],
+    itemUpdateTime: 0,
+    pendingItems: false,
     stackedChart: false,
     renderChart: 0,
   },
@@ -28,13 +30,19 @@ export default new Vuex.Store({
   actions: {
     //TODO：所有 action 先使用挂载到 window 下的 axios 实例
     fetchNowList({ commit, state }) {
+      state.pendingItems = true
       window.axios.get('/list')
         .then(res => {
+          state.pendingItems = false
           if(res.data?.data?.list?.length) {
             state.itemList = res.data.data.list
+            state.itemUpdateTime = res.data.ts
           } else {
             $toast('读取数据错误', 1500, state.isDark ? 'light-theme' : '')
           }
+        })
+        .catch(err => {
+          state.pendingItems = false
         })
     },
   },
