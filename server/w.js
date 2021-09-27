@@ -48,6 +48,7 @@ app.get('/get_waiting_by_date_dur',function(req,res){
 
 app.get('/list',function(req,res){
   if(getlist().length>1){
+    res.set("Access-Control-Allow-Origin", "*");
     res.set('Content-Type','text/plain');
     res.send(getlist());
   }else{
