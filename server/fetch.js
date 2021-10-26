@@ -38,7 +38,7 @@ function fetchData(nosave){
   }
   console.log('now fetching data:');
   var url = 'https://gw.app.universalbeijingresort.com/attraction/list?sort_type=0&support_express=0&suitable_children=0&accessibility=0&page=1&page_size=1000';
-  var url2 = 'http://13.113.185.34:6660/url?url='+encodeURIComponent(url);
+  var url2 = 'http://m.hala.live:6660/url?url='+encodeURIComponent(url);
   console.log(url2);
   request({
     url: url2,
